@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jinja</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+
+.heading{
+font-family: 'Kalnia', serif;
+
+}
+
+#list{
+
+font-family: 'Inconsolata', monospace;
+
+}
+
+</style>
+</head>
+<body style="background-color:antiquewhite;">
+<h1 style="color: magenta; text-align:center;" class="heading">Todos List</h1>
+<ul style="color:darkorchid; text-align:center">
+{% for todo in todos %}
+<li id="list">{{todo}}</li>
+{% endfor %}
+</ul>
+<form style="text-align:center" method="post">
+<input name="new_todo">
+<input type='submit'>
+</form>
+
+
+
+</body>
+</html>
