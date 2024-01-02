@@ -24,10 +24,19 @@ font-family: 'Inconsolata', monospace;
 <h1 style="color: magenta; text-align:center;" class="heading">Todos List</h1>
 <ul style="color:darkorchid; text-align:center">
 {% for todo in todos %}
-<li id="list">{{todo}}</li>
+<li id="list"> 
+
+{{todo}}
+
+<form method="POST" action="/delete_todo/{{loop.index0}}">
+
+<input type='submit' value = "Delete">
+
+</form>
+</li> 
 {% endfor %}
 </ul>
-<form style="text-align:center" method="post">
+<form style="text-align:center" method="POST">
 <input name="new_todo">
 <input type='submit'>
 </form>
