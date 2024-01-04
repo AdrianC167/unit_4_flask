@@ -26,7 +26,7 @@ font-family: 'Inconsolata', monospace;
 {% for todo in todos %}
 <li id="list"> 
 
-{{todo}}
+{{todo['description']}}
 
 <form method="POST" action="/delete_todo/{{loop.index0}}">
 
