@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>jinja</title>
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+.delete{
+
+width: 65px;
+height: 20px;
+border-radius: 12%;
+background-color:darkkhaki;
+
+}
 
 
 .heading{
 font-family: 'Kalnia', serif;
+padding-top: 15px;
 
 }
 
@@ -18,27 +29,85 @@ font-family: 'Inconsolata', monospace;
 
 }
 
+.complete{
+text-decoration: line-through;
+opacity: 40%;
+
+}
+.hidden{
+
+display: none;
+
+
+}
+
+.button  {
+
+width: 85px;
+height: 20px;
+
+}
+
+.div{
+outline-style: solid;
+outline-color: black;
+padding: 40px 40px 40px 40px;
+margin: 40px;
+
+
+
+}
+
+.post{
+display: inline-block;
+float:right;
+}
+
+.li{
+
+height: 45px;
+
+}
+
+.marright{
+margin-right: 5px;
+
+}
+
+.text{
+height:35px;
+width: 400rpx;
+
+}
+
 </style>
 </head>
 <body style="background-color:antiquewhite;">
 <h1 style="color: magenta; text-align:center;" class="heading">Todos List</h1>
-<ul style="color:darkorchid; text-align:center">
+<div class="text-center div">
+
 {% for todo in todos %}
-<li id="list"> 
+<div id="list" class="li {%if todo['complete']%}complete{%endif%}" style="color:darkorchid; text-align:left; "> 
 
 {{todo['description']}}
 
-<form method="POST" action="/delete_todo/{{todo['id']}}">
+{%if todo['complete']%}✔{%endif%}
 
-<input type='submit' value = "Delete">
-
+<form method="POST" action="/complete_todo/{{todo['id']}}" class="post marginright">
+<input type='submit' value="Complete" class="btn btn-success {%if todo['complete'] == 1%}hidden{%endif%}" >
 </form>
-</li>   
+
+<form method="POST" action="/delete_todo/{{todo['id']}}" class="post">
+<input type='submit' value = "Delete" class="btn btn-danger">
+</form>
+
+</div>   
 {% endfor %}
-</ul>
-<form style="text-align:center" method="POST">
-<input name="new_todo">
-<input type='submit'>
+
+</div>
+<form style="text-align:left;margin-left:40px;" method="POST" >
+<input name="new_todo" placeholder="Enter a new todo here" class="text">
+<input type='submit' class="btn btn-outline-primary">
 </form>
 
 
