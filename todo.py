@@ -2,9 +2,23 @@ from flask import Flask, render_template, request, redirect
 import pymysql
 import pymysql.cursors
 from pprint import pprint as print
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
+auth = HTTPBasicAuth()
+
+users = {
+    "seam": generate_password_hash("hello"),
+    "adrian": generate_password_hash("friedchickenx2")
+}
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and \
+            check_password_hash(users.get(username), password):
+        return username
 
 my_todo = ["graduate", 'get into college']
 conn = pymysql.connect(
@@ -17,8 +31,9 @@ conn = pymysql.connect(
 
 
 @app.route("/", methods= ["GET", 'POST'])
+@auth.login_required
 def todo():
-
+    
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM `todos` ORDER BY `complete`")
     results = cursor.fetchall()
